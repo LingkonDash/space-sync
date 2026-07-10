@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import Link from "next/link";
 import { HiArrowRight, HiOutlineLocationMarker, HiOutlineCalendar, HiSearch, HiChevronDown } from "react-icons/hi";
-import { HiOutlineUserPlus } from "react-icons/hi2";
 import { FiGlobe, FiMapPin, FiClipboard } from "react-icons/fi";
 import { FaStar } from "react-icons/fa";
 import StatCard from "./StatCard";
@@ -138,17 +137,10 @@ export default function Banner() {
             <div ref={ctaRef} className="mt-7 flex flex-wrap items-center gap-3">
               <Link
                 href="/explore"
-                className="inline-flex items-center gap-2 rounded-xl bg-[var(--color-primary)] px-5 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 hover:bg-[var(--color-primary)]/90"
+                className="inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-xl bg-[var(--color-primary)] px-5 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 hover:bg-[var(--color-primary)]/90"
               >
                 Explore Spaces
                 <HiArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/register?role=host"
-                className="inline-flex items-center gap-2 rounded-xl border border-[var(--color-neutral-border)] bg-white px-5 py-3 text-sm font-semibold text-[var(--color-neutral-text)] transition-transform hover:-translate-y-0.5"
-              >
-                Become a Host
-                <HiOutlineUserPlus className="h-4 w-4" />
               </Link>
             </div>
 

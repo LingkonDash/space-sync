@@ -30,7 +30,7 @@ export default function RootLayout({
       lang="en"
       className={`h-full antialiased ${inter.className} ${spaceGrotesk.className}`}
     >
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="min-h-full flex flex-col font-sans bg-neutral-bg">{children}</body>
     </html>
   );
 }

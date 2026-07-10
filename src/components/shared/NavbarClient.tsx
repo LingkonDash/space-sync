@@ -241,9 +241,9 @@ export default function NavbarClient({ user }: NavbarClientProps) {
                                     </Link>
 
                                     <Link
-                                        href="/profile"
+                                        href="/dashboard/profile"
                                         className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm ${
-                                            isActiveLink(pathname, "/profile")
+                                            isActiveLink(pathname, "/dashboard/profile")
                                                 ? "bg-indigo-50 text-indigo-600"
                                                 : "text-slate-700 hover:bg-slate-50"
                                         }`}
@@ -341,9 +341,9 @@ export default function NavbarClient({ user }: NavbarClientProps) {
                                 Dashboard
                             </Link>
                             <Link
-                                href="/profile"
+                                href="/dashboard/profile"
                                 className={`rounded-lg px-3 py-2 text-sm font-medium ${
-                                    isActiveLink(pathname, "/profile")
+                                    isActiveLink(pathname, "/dashboard/profile")
                                         ? "bg-indigo-50 text-indigo-600"
                                         : "text-slate-700 hover:bg-slate-50"
                                 }`}
