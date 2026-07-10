@@ -86,20 +86,20 @@ export default function TestimonialSlider(): React.JSX.Element {
         
         {/* Header Row containing Arrow Navigation Controls */}
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight">
+          <h2 className="text-xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight">
             Top Rated By Professionals
           </h2>
           <div className="flex gap-2">
             <button
               onClick={handlePrev}
-              className="p-2.5 rounded-full border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-[#4F46E5] active:scale-95 transition-all shadow-sm"
+              className="p-1.5 sm:p-2.5 rounded-full border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-[#4F46E5] active:scale-95 transition-all shadow-sm"
               aria-label="Previous slide"
             >
               <FiChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={handleNext}
-              className="p-2.5 rounded-full border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-[#4F46E5] active:scale-95 transition-all shadow-sm"
+              className="p-1.5 sm:p-2.5 rounded-full border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-[#4F46E5] active:scale-95 transition-all shadow-sm"
               aria-label="Next slide"
             >
               <FiChevronRight className="w-5 h-5" />
