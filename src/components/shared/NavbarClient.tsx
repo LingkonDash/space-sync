@@ -8,9 +8,9 @@ import gsap from "gsap";
 import { HiOutlineMenu, HiOutlineX, HiChevronDown } from "react-icons/hi";
 import { FiUser, FiGrid, FiLogOut } from "react-icons/fi";
 
-// import { authClient } from "@/lib/core/client"; // adjust path to match your better-auth client export
 import logo from "@/images/spaceSyncLogo.svg";
 import type { SessionUser } from "@/types/auth";
+import { authClient } from "@/lib/auth-client";
 
 interface NavLink {
     label: string;
@@ -30,7 +30,7 @@ const HOST_LINKS: NavLink[] = [
     { label: "Manage Spaces", href: "/items/manage" },
 ];
 
-function getRoleLinks(role: SessionUser["role"]): NavLink[] {
+function getRoleLinks(role: SessionUser["userRole"]): NavLink[] {
     if (role === "host" || role === "admin") {
         return [...USER_LINKS, ...HOST_LINKS];
     }
@@ -60,8 +60,8 @@ export default function NavbarClient({ user }: NavbarClientProps) {
     const profileMenuRef = useRef<HTMLDivElement | null>(null);
     const profileWrapperRef = useRef<HTMLDivElement | null>(null);
 
-    const navLinks = user ? [...PUBLIC_LINKS, ...getRoleLinks(user.role)] : PUBLIC_LINKS;
-    const dashboardHref = user ? `/dashboard/${user.role}` : "/dashboard";
+    const navLinks = user ? [...PUBLIC_LINKS, ...getRoleLinks(user?.userRole)] : PUBLIC_LINKS;
+    const dashboardHref = user ? `/dashboard/${user.userRole}` : "/dashboard";
 
     // Entrance animation
     useEffect(() => {
@@ -124,9 +124,7 @@ export default function NavbarClient({ user }: NavbarClientProps) {
     }, []);
 
     async function handleSignOut() {
-        console.log("signout clicked");
-        return;
-        // await authClient.signOut();
+        await authClient.signOut();
         setProfileOpen(false);
         router.push("/");
         router.refresh();
@@ -383,14 +381,6 @@ export default function NavbarClient({ user }: NavbarClientProps) {
                     )}
                 </div>
             </div>
-
-            {/* Mobile overlay backdrop */}
-            {mobileOpen && (
-                <div
-                    className="fixed inset-0 z-40 bg-black/30 md:hidden"
-                    onClick={() => setMobileOpen(false)}
-                />
-            )}
         </nav>
     );
 }

@@ -8,7 +8,7 @@ export interface SessionUser {
   image?: string | null;
   createdAt: Date;
   updatedAt: Date;
-  role: UserRole;
+  userRole: UserRole;
   banned: boolean;
   twoFactorEnabled: boolean;
 }

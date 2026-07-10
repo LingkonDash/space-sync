@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+@theme {
+    /* Buttons, active nav, links, primary CTAs */
+    --color-primary: #4F46E5;
+
+    /* Highlights, ratings, badges, secondary CTAs */
+    --color-secondary: #F59E0B;
+
+    /* Success states, confirmed badges, chart accents */
+    --colro-accent: #0D9488;
+
+    /* Layout, cards, typography */
+    --color-neutral-text: #0F172A;
+    --color-neutral-bg: #F8FAFC;
+    --color-neutral-border: #E2E8F0;
+}
