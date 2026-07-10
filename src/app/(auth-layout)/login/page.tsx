@@ -116,8 +116,8 @@ export default function LoginPage() {
 
   // ─────────────────────────────────────────────────────────────────────────
   return (
-    <section className="min-h-screen bg-[var(--color-neutral-bg)] flex items-center justify-center px-6 py-12">
-      <div className="w-full max-w-7xl bg-white rounded-[40px] overflow-hidden shadow-xl">
+    <section className="min-h-[80vh] bg-[var(--color-neutral-bg)] flex items-center justify-center px-6 py-12">
+      <div className="bg-white rounded-[40px] overflow-hidden shadow-xl">
 
         {/* ── Login Form ───────────────────────────────────────────────────── */}
         <div className="p-8 md:p-14 flex items-center">
