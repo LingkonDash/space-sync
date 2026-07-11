@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,7 +31,10 @@ export default function RootLayout({
       lang="en"
       className={`h-full antialiased ${inter.className} ${spaceGrotesk.className}`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-neutral-bg">{children}</body>
+      <body className="min-h-full flex flex-col font-sans bg-neutral-bg">
+        {children}
+        <ToastContainer />
+      </body>
     </html>
   );
 }

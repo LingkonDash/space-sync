@@ -11,6 +11,7 @@ import { FiUser, FiGrid, FiLogOut } from "react-icons/fi";
 import logo from "@/images/spaceSyncLogo.svg";
 import type { SessionUser } from "@/types/auth";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 interface NavLink {
     label: string;
@@ -126,8 +127,9 @@ export default function NavbarClient({ user }: NavbarClientProps) {
     async function handleSignOut() {
         await authClient.signOut();
         setProfileOpen(false);
-        router.push("/");
+        router.push("/login");
         router.refresh();
+        toast.success('Signout Successfull!')
     }
 
     return (
@@ -255,7 +257,7 @@ export default function NavbarClient({ user }: NavbarClientProps) {
 
                                     <button
                                         onClick={handleSignOut}
-                                        className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50"
+                                        className="flex cursor-pointer w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50"
                                     >
                                         <FiLogOut className="h-4 w-4" />
                                         Sign Out
@@ -373,7 +375,7 @@ export default function NavbarClient({ user }: NavbarClientProps) {
                     ) : (
                         <button
                             onClick={handleSignOut}
-                            className="flex w-full items-center justify-center gap-2 rounded-xl border border-red-200 px-4 py-2 text-sm font-medium text-red-600"
+                            className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-red-200 px-4 py-2 text-sm font-medium text-red-600"
                         >
                             <FiLogOut className="h-4 w-4" />
                             Sign Out

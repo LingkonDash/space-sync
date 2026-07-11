@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation";
 import { BsGoogle } from "react-icons/bs";
 import { FiEye, FiEyeOff, FiCheck } from "react-icons/fi";
 import { authClient } from "@/lib/auth-client";
-import { toast } from "react-toastify";
 import logo from "@/images/spaceSyncLogo.svg";
+import { toast } from "react-toastify";
 
 // ─── TYPES ──────────────────────────────────────────────────────────────────
 interface FormErrors {
@@ -76,7 +76,7 @@ export default function LoginPage() {
       }
 
       // Step 3: Role-based redirect
-      const userRole = (data?.user?.role as UserRole) || "user";
+      const userRole = (data?.user?.userRole as UserRole) || "user";
 
       let destination = "/";
 
@@ -102,15 +102,14 @@ export default function LoginPage() {
 
   // ── Google sign-in ───────────────────────────────────────────────────────
   async function handleGoogleSignIn() {
-    const googleToast = toast.loading("Connecting to Google…");
     try {
       await authClient.signIn.social({
         provider: "google",
         callbackURL: "/",
       });
-      toast.success("Redirecting…", { id: googleToast });
+      toast.success("Redirecting…");
     } catch {
-      toast.error("Google sign-in failed. Please try again.", { id: googleToast });
+      toast.error("Google sign-in failed. Please try again.");
     }
   }
 
