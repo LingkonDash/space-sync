@@ -1,8 +1,8 @@
-import getRooms from "@/lib/api/getRooms";
 import RoomCard from "@/components/shared/RoomCard";
 import type { Space } from "@/types/space";
 import type { ExploreSearchParams } from "@/types/searchParams";
 import PaginationControls from "./PaginationControls";
+import { getRooms } from "@/lib/api/rooms";
 
 
 interface RoomsBodyProps {

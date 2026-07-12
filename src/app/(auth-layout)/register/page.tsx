@@ -171,7 +171,7 @@ export default function RegisterPage() {
 
   // ── Google signup ────────────────────────────────────────────────────────
   async function handleGoogleSignUp() {
-    await authClient.signIn.social({ provider: "google", callbackURL: "/dashboard/user" });
+    await authClient.signIn.social({ provider: "google", callbackURL: "/" });
   }
 
   // ── Password strength indicator ──────────────────────────────────────────

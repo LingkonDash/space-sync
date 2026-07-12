@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import getRooms from "@/lib/api/getRooms";
+import getRooms from "@/lib/api/rooms";
 import SearchAndFilter from "@/components/explore/SearchAndFilter";
 import RoomsBody from "@/components/explore/RoomsBody";
 import RoomsSkeleton from "@/components/explore/RoomsSkeleton";

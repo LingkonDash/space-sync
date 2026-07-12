@@ -1,14 +1,14 @@
-import getFeaturedRooms from "@/lib/api/getFeaturedRooms";
+import { getFeaturedRooms } from "@/lib/api/rooms";
 import RoomCard from "../shared/RoomCard";
 import type { Space } from "@/types/space";
 
-const FEATURED_COUNT = 8;
+const FEATURED_COUNT = 4;
 
 export default async function FeaturedRooms() {
   const featuredRooms: Space[] = await getFeaturedRooms(FEATURED_COUNT);
 
   return (
-    <section className="bg-[var(--color-neutral-bg)] py-5 md:py-10">
+    <section id="features" className="bg-[var(--color-neutral-bg)] py-5 md:py-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-primary)]">

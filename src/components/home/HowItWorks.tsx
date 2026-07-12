@@ -109,6 +109,7 @@ export default function HowItWorks() {
   return (
     <section
       ref={containerRef}
+      id='howItWorks'
       className="w-full px-4 py-20 md:px-8 max-w-7xl mx-auto bg-[#F8FAFC] overflow-hidden"
     >
       {/* Header */}

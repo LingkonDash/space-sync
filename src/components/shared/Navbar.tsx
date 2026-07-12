@@ -1,4 +1,4 @@
-import { getUserSession } from "@/lib/core/server";
+import { getUserSession } from "@/lib/core/session";
 import type { SessionUser } from "@/types/auth";
 import NavbarClient from "./NavbarClient";
 

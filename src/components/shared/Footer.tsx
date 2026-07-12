@@ -6,14 +6,16 @@ import Image from "next/image";
 import logo from "@/images/spaceSyncLogo.svg";
 import { LiaLinkedin } from "react-icons/lia";
 import { PiXCircleBold } from "react-icons/pi";
-import { BsInstagram, BsLinkedin, BsTwitter } from "react-icons/bs";
+import { BsGithub, BsInstagram, BsLinkedin, BsTwitter } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
 import { IconType } from "react-icons";
+import Link from "next/link";
 
 
 
 interface SocialLinkProps {
   platform: string;
+  link: string;
   iconLetter: IconType;
 }
 
@@ -66,7 +68,7 @@ export default function Footer(): React.JSX.Element {
       {/* Upper Newsletter / CTA Banner */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
         <div className="animate-cta relative rounded-3xl bg-gradient-to-r from-[#4F46E5] via-[#4338CA] to-[#0D9488] p-8 md:p-12 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl shadow-[#4F46E5]/20">
-          
+
           {/* Subtle Abstract Background Geometric Grid */}
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] rounded-3xl pointer-events-none"></div>
 
@@ -80,8 +82,8 @@ export default function Footer(): React.JSX.Element {
           </div>
 
           {/* Banner Newsletter Form */}
-          <form 
-            onSubmit={(e) => e.preventDefault()} 
+          <form
+            onSubmit={(e) => e.preventDefault()}
             className="w-full max-w-md flex flex-col sm:flex-row gap-3 relative z-10"
           >
             <input
@@ -96,7 +98,7 @@ export default function Footer(): React.JSX.Element {
               onMouseLeave={handleMouseLeave}
               className="w-full sm:w-auto px-7 py-4 bg-[#F59E0B] hover:bg-[#D97706] text-[#0F172A] font-bold rounded-xl transition-colors duration-200 text-sm whitespace-nowrap flex items-center justify-center gap-2 shadow-lg shadow-[#F59E0B]/20"
             >
-              Get Started 
+              Get Started
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
@@ -107,12 +109,12 @@ export default function Footer(): React.JSX.Element {
 
       {/* Main Grid Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 md:gap-8 border-b border-slate-800">
-        
+
         {/* Brand Meta Column */}
         <div className="animate-col sm:col-span-2 lg:col-span-1 space-y-5">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white tracking-tighter">
-              <Image src={logo} alt="logo" height={50} width={50} className="brightness-0 rounded-full invert"/>
+              <Image src={logo} alt="logo" height={50} width={50} className="brightness-0 rounded-full invert" />
             </div>
             <span className="text-xl font-bold tracking-tight text-white">SpaceSync</span>
           </div>
@@ -121,14 +123,14 @@ export default function Footer(): React.JSX.Element {
           </p>
           <div className="flex gap-3">
             {[
-              { platform: "linkedin", iconLetter: BsLinkedin },
-              { platform: "twitter", iconLetter: BsTwitter },
-              { platform: "instagram", iconLetter: BsInstagram },
-              { platform: "facebook", iconLetter: FaFacebook }
+              { platform: "linkedin", iconLetter: BsLinkedin, link: 'https://www.linkedin.com/in/lingkon-dash/' },
+              { platform: "github", iconLetter: BsGithub, link: 'https://github.com/LingkonDash' },
+              { platform: "instagram", iconLetter: BsInstagram, link: 'https://www.instagram.com/lingkon.dash/' },
+              { platform: "facebook", iconLetter: FaFacebook, link: 'https://www.facebook.com/lingkon.dash.2025' }
             ].map((social: SocialLinkProps) => (
               <a
                 key={social.platform}
-                href={`https://${social.platform}.com`}
+                href={social.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-[#4F46E5] hover:bg-[#4F46E5]/10 transition-all duration-300 text-xs font-bold"
@@ -144,9 +146,19 @@ export default function Footer(): React.JSX.Element {
         <div className="animate-col space-y-4">
           <h3 className="text-sm font-semibold tracking-wider text-slate-200 uppercase">Product</h3>
           <ul className="space-y-2.5 text-sm text-slate-400">
-            {["Explore Spaces", "Become a Host", "Pricing", "How It Works", "Features"].map((link: string) => (
-              <li key={link}>
-                <a href="#" className="hover:text-[#4F46E5] transition-colors duration-200">{link}</a>
+            {[
+              { label: "Explore Spaces", href: "/explore" },
+              { label: "Become a Host", href: "/register" },
+              { label: "How It Works", href: "/#howItWorks" },
+              { label: "Features", href: "/#features" },
+            ].map((link) => (
+              <li key={link.label}>
+                <Link
+                  href={link.href}
+                  className="hover:text-[#4F46E5] transition-colors duration-200"
+                >
+                  {link.label}
+                </Link>
               </li>
             ))}
           </ul>
@@ -158,7 +170,7 @@ export default function Footer(): React.JSX.Element {
           <ul className="space-y-2.5 text-sm text-slate-400">
             {["About Us", "Careers", "Blog", "Press Kit", "Contact"].map((link: string) => (
               <li key={link}>
-                <a href="#" className="hover:text-[#4F46E5] transition-colors duration-200">{link}</a>
+                <Link href="/about" className="hover:text-[#4F46E5] transition-colors duration-200">{link}</Link>
               </li>
             ))}
           </ul>
@@ -170,7 +182,7 @@ export default function Footer(): React.JSX.Element {
           <ul className="space-y-2.5 text-sm text-slate-400">
             {["Help Center", "Safety", "Cancellation Options", "Trust & Security", "Community"].map((link: string) => (
               <li key={link}>
-                <a href="#" className="hover:text-[#4F46E5] transition-colors duration-200">{link}</a>
+                <Link href="#" className="hover:text-[#4F46E5] transition-colors duration-200">{link}</Link>
               </li>
             ))}
           </ul>
@@ -182,7 +194,7 @@ export default function Footer(): React.JSX.Element {
           <p className="text-slate-400 text-sm leading-relaxed">
             Subscribe to get the latest updates, workspace tips, and offers.
           </p>
-          <form 
+          <form
             onSubmit={(e) => e.preventDefault()}
             className="flex rounded-xl bg-slate-900 border border-slate-800 p-1 focus-within:border-[#4F46E5] transition-colors"
           >
