@@ -1,9 +1,26 @@
-async function HostDashboardPage() {
-    return (
-        <h1>
-            hi from dashboard admin
-        </h1>
-    )
+import { getHostBookings } from "@/lib/action/bookings";
+import HostBookingsTable, { UserBooking } from "./Hostbookingstable";
+
+async function HostBookingsPage() {
+  const hostBookings: UserBooking[] = await getHostBookings();
+  
+
+  return (
+    <div className="min-h-screen bg-neutral-bg px-4 py-6 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-6">
+          <h1 className="text-xl font-semibold text-neutral-text sm:text-2xl">
+            Host Bookings
+          </h1>
+          <p className="mt-1 text-sm text-neutral-text/60">
+            {hostBookings.length} booking{hostBookings.length !== 1 ? "s" : ""} total
+          </p>
+        </div>
+
+        <HostBookingsTable bookings={hostBookings} />
+      </div>
+    </div>
+  );
 }
 
-export default HostDashboardPage
+export default HostBookingsPage;

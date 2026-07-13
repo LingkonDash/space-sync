@@ -2,16 +2,11 @@
 import ManagePanel from "@/components/dashboard/ManagePanel";
 import { manageValidator } from "@/utils/manageValidator";
 
-interface PageProps {
-  searchParams: Promise<{ page?: string }>;
-}
 
-async function HostManagePage({ searchParams }: PageProps) {
-  const params = await searchParams;
-  const page = params.page || "1";
+async function HostManagePage() {
 
   const { role, canManage, roomData} =
-    await manageValidator(`?page=${page}`);
+    await manageValidator();
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] py-8 px-4 sm:px-6 lg:px-10">
