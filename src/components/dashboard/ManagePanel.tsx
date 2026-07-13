@@ -3,7 +3,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 import { deleteRoom, editRoom } from "@/lib/action/host/rooms";
 import uploadToImgBB from "@/utils/imgbb/uploadToImgBB";
@@ -16,8 +15,6 @@ import {
   MdLocationOn,
   MdCloudUpload,
   MdAddBox,
-  MdChevronLeft,
-  MdChevronRight,
 } from "react-icons/md";
 import { LuLoaderCircle } from "react-icons/lu";
 
@@ -64,8 +61,6 @@ interface ManagePanelProps {
   role: "host" | "admin";
   canManage: boolean;
   initialRooms: Space[];
-  currentPage: number;
-  totalPages: number;
 }
 
 interface FormErrors {
@@ -83,8 +78,6 @@ export default function ManagePanel({
   role,
   canManage,
   initialRooms,
-  currentPage,
-  totalPages,
 }: ManagePanelProps) {
   const [rooms, setRooms] = useState<Space[]>(initialRooms);
   const [editTarget, setEditTarget] = useState<Space | null>(null);
@@ -126,126 +119,173 @@ export default function ManagePanel({
 
   return (
     <>
-      <style jsx>{`
-        .room-row {
-          display: grid;
-          gap: 0.65rem 1rem;
-          grid-template-columns: 1fr 1fr;
-          grid-template-areas:
-            "image image"
-            "title title"
-            "meta meta"
-            "price status"
-            "actions actions";
-          align-items: center;
-        }
-        @media (min-width: 640px) {
-          .room-row {
-            grid-template-columns: 88px 1fr 1fr;
-            grid-template-areas:
-              "image title title"
-              "image meta meta"
-              "image price status"
-              "image actions actions";
-          }
-        }
-        @media (min-width: 1024px) {
-          .room-row {
-            grid-template-columns: 72px 2.2fr 1.3fr 0.8fr 1fr 0.9fr;
-            grid-template-areas: "image title meta price status actions";
-            gap: 1rem;
-          }
-        }
-        .area-image { grid-area: image; }
-        .area-title { grid-area: title; }
-        .area-meta { grid-area: meta; }
-        .area-price { grid-area: price; }
-        .area-status { grid-area: status; }
-        .area-actions { grid-area: actions; }
-      `}</style>
-
       <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-sm divide-y divide-[#E2E8F0]">
+        {/* Desktop / tablet header row */}
+        <div className="hidden md:grid grid-cols-[64px_2.2fr_1.3fr_0.8fr_0.9fr_0.9fr] gap-4 px-5 py-3 text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+          <span />
+          <span>Space</span>
+          <span>Details</span>
+          <span>Price</span>
+          <span>Status</span>
+          <span className="text-right">Actions</span>
+        </div>
+
         {rooms.map((room) => {
           const statusStyle = STATUS_STYLES[room.status];
           return (
-            <div key={room._id} className="room-row p-4 sm:p-5">
-              <div className="area-image w-full sm:w-[72px] aspect-square rounded-lg overflow-hidden bg-slate-100 shrink-0">
-                {room.images[0] && (
-                  <img
-                    src={room.images[0]}
-                    alt={room.title}
-                    className="w-full h-full object-cover"
-                  />
-                )}
+            <div key={room._id}>
+              {/* Mobile card view */}
+              <div className="md:hidden p-4 flex gap-3">
+                <div className="w-16 h-16 shrink-0 rounded-lg overflow-hidden bg-slate-100">
+                  {room.images[0] && (
+                    <img
+                      src={room.images[0]}
+                      alt={room.title}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+                </div>
+
+                <div className="min-w-0 flex-1">
+                  <span className="text-[11px] font-semibold text-[#4F46E5] uppercase tracking-wide block mb-0.5">
+                    {room.category}
+                  </span>
+                  <h3 className="font-semibold text-[#0F172A] text-[15px] leading-snug truncate">
+                    {room.title}
+                  </h3>
+                  {role === "admin" && (
+                    <p className="text-[11px] text-slate-400 truncate mt-0.5">
+                      {room.hostName} · {room.hostEmail}
+                    </p>
+                  )}
+
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 mt-1.5">
+                    <span className="flex items-center gap-1">
+                      <MdLocationOn className="size-3.5 text-slate-400" />
+                      {room.city}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <MdGroups className="size-3.5 text-slate-400" />
+                      {room.capacity}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <MdStar className="size-3.5 text-[#F59E0B]" />
+                      {room.rating.toFixed(1)} ({room.reviewCount})
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between mt-2.5">
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold text-[#0F172A] text-sm">
+                        ৳{room.pricePerHour}
+                        <span className="text-slate-400 font-normal text-xs">/hr</span>
+                      </span>
+                      <span
+                        className={`inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full ${statusStyle.bg} ${statusStyle.text}`}
+                      >
+                        <span className={`w-1.5 h-1.5 rounded-full ${statusStyle.dot}`} />
+                        {statusStyle.label}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => setEditTarget(room)}
+                        className="p-2 rounded-lg text-slate-500 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition-all"
+                        aria-label="Edit space"
+                      >
+                        <MdEdit className="size-4" />
+                      </button>
+                      <button
+                        onClick={() => setDeleteTarget(room)}
+                        className="p-2 rounded-lg text-slate-500 hover:bg-red-50 hover:text-red-500 transition-all"
+                        aria-label="Delete space"
+                      >
+                        <MdDeleteOutline className="size-4" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div className="area-title min-w-0">
-                <span className="text-[11px] font-semibold text-[#4F46E5] uppercase tracking-wide block mb-0.5">
-                  {room.category}
-                </span>
-                <h3 className="font-semibold text-[#0F172A] text-[15px] leading-snug truncate">
-                  {room.title}
-                </h3>
-                {role === "admin" && (
-                  <p className="text-[11px] text-slate-400 truncate mt-0.5">
-                    {room.hostName} · {room.hostEmail}
-                  </p>
-                )}
-              </div>
+              {/* Desktop / tablet table row */}
+              <div className="hidden md:grid grid-cols-[64px_2.2fr_1.3fr_0.8fr_0.9fr_0.9fr] gap-4 items-center px-5 py-4">
+                <div className="w-14 h-14 rounded-lg overflow-hidden bg-slate-100">
+                  {room.images[0] && (
+                    <img
+                      src={room.images[0]}
+                      alt={room.title}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+                </div>
 
-              <div className="area-meta flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
-                <span className="flex items-center gap-1">
-                  <MdLocationOn className="size-3.5 text-slate-400" />
-                  {room.city}
-                </span>
-                <span className="flex items-center gap-1">
-                  <MdGroups className="size-3.5 text-slate-400" />
-                  {room.capacity}
-                </span>
-                <span className="flex items-center gap-1">
-                  <MdStar className="size-3.5 text-[#F59E0B]" />
-                  {room.rating.toFixed(1)} ({room.reviewCount})
-                </span>
-              </div>
+                <div className="min-w-0">
+                  <span className="text-[11px] font-semibold text-[#4F46E5] uppercase tracking-wide block mb-0.5">
+                    {room.category}
+                  </span>
+                  <h3 className="font-semibold text-[#0F172A] text-[15px] leading-snug truncate">
+                    {room.title}
+                  </h3>
+                  {role === "admin" && (
+                    <p className="text-[11px] text-slate-400 truncate mt-0.5">
+                      {room.hostName} · {room.hostEmail}
+                    </p>
+                  )}
+                </div>
 
-              <div className="area-price">
-                <span className="font-semibold text-[#0F172A] text-sm">
-                  ৳{room.pricePerHour}
-                  <span className="text-slate-400 font-normal text-xs">/hr</span>
-                </span>
-              </div>
+                <div className="flex flex-col gap-1 text-xs text-slate-500 min-w-0">
+                  <span className="flex items-center gap-1 truncate">
+                    <MdLocationOn className="size-3.5 text-slate-400 shrink-0" />
+                    <span className="truncate">{room.city}</span>
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <MdGroups className="size-3.5 text-slate-400 shrink-0" />
+                    {room.capacity}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <MdStar className="size-3.5 text-[#F59E0B] shrink-0" />
+                    {room.rating.toFixed(1)} ({room.reviewCount})
+                  </span>
+                </div>
 
-              <div className="area-status">
-                <span
-                  className={`inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full ${statusStyle.bg} ${statusStyle.text}`}
-                >
-                  <span className={`w-1.5 h-1.5 rounded-full ${statusStyle.dot}`} />
-                  {statusStyle.label}
-                </span>
-              </div>
+                <div>
+                  <span className="font-semibold text-[#0F172A] text-sm whitespace-nowrap">
+                    ৳{room.pricePerHour}
+                    <span className="text-slate-400 font-normal text-xs">/hr</span>
+                  </span>
+                </div>
 
-              <div className="area-actions flex items-center gap-1.5 justify-start lg:justify-end">
-                <button
-                  onClick={() => setEditTarget(room)}
-                  className="p-2 rounded-lg text-slate-500 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition-all"
-                  aria-label="Edit space"
-                >
-                  <MdEdit className="size-4" />
-                </button>
-                <button
-                  onClick={() => setDeleteTarget(room)}
-                  className="p-2 rounded-lg text-slate-500 hover:bg-red-50 hover:text-red-500 transition-all"
-                  aria-label="Delete space"
-                >
-                  <MdDeleteOutline className="size-4" />
-                </button>
+                <div>
+                  <span
+                    className={`inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full whitespace-nowrap ${statusStyle.bg} ${statusStyle.text}`}
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${statusStyle.dot}`} />
+                    {statusStyle.label}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-1.5 justify-end">
+                  <button
+                    onClick={() => setEditTarget(room)}
+                    className="p-2 rounded-lg text-slate-500 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition-all"
+                    aria-label="Edit space"
+                  >
+                    <MdEdit className="size-4" />
+                  </button>
+                  <button
+                    onClick={() => setDeleteTarget(room)}
+                    className="p-2 rounded-lg text-slate-500 hover:bg-red-50 hover:text-red-500 transition-all"
+                    aria-label="Delete space"
+                  >
+                    <MdDeleteOutline className="size-4" />
+                  </button>
+                </div>
               </div>
             </div>
           );
         })}
       </div>
-
-      <PaginationControls currentPage={currentPage} totalPages={totalPages} />
 
       {editTarget && (
         <EditModal
@@ -269,70 +309,6 @@ export default function ManagePanel({
         />
       )}
     </>
-  );
-}
-
-// ─── Pagination ───────────────────────────────────────────────────────
-function PaginationControls({
-  currentPage,
-  totalPages,
-}: {
-  currentPage: number;
-  totalPages: number;
-}) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  if (totalPages <= 1) return null;
-
-  const buildHref = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", String(page));
-    return `${pathname}?${params.toString()}`;
-  };
-
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-
-  return (
-    <div className="flex items-center justify-center gap-1.5 mt-6">
-      <Link
-        href={buildHref(Math.max(1, currentPage - 1))}
-        aria-disabled={currentPage === 1}
-        className={`p-2 rounded-lg border border-[#E2E8F0] transition-all ${
-          currentPage === 1
-            ? "pointer-events-none opacity-40"
-            : "text-slate-500 hover:bg-slate-50"
-        }`}
-      >
-        <MdChevronLeft className="size-4" />
-      </Link>
-
-      {pages.map((p) => (
-        <Link
-          key={p}
-          href={buildHref(p)}
-          className={`min-w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium transition-all ${
-            p === currentPage
-              ? "bg-[#4F46E5] text-white"
-              : "text-slate-500 border border-[#E2E8F0] hover:bg-slate-50"
-          }`}
-        >
-          {p}
-        </Link>
-      ))}
-
-      <Link
-        href={buildHref(Math.min(totalPages, currentPage + 1))}
-        aria-disabled={currentPage === totalPages}
-        className={`p-2 rounded-lg border border-[#E2E8F0] transition-all ${
-          currentPage === totalPages
-            ? "pointer-events-none opacity-40"
-            : "text-slate-500 hover:bg-slate-50"
-        }`}
-      >
-        <MdChevronRight className="size-4" />
-      </Link>
-    </div>
   );
 }
 

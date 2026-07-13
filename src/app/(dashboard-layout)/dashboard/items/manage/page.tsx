@@ -10,7 +10,7 @@ async function HostManagePage({ searchParams }: PageProps) {
   const params = await searchParams;
   const page = params.page || "1";
 
-  const { role, canManage, roomData, currentPage, totalPages, totalCount } =
+  const { role, canManage, roomData} =
     await manageValidator(`?page=${page}`);
 
   return (
@@ -27,17 +27,12 @@ async function HostManagePage({ searchParams }: PageProps) {
                 : "Edit details or remove spaces you've listed."}
             </p>
           </div>
-          {totalCount > 0 && (
-            <span className="text-sm text-slate-400">{totalCount} total spaces</span>
-          )}
         </div>
 
         <ManagePanel
           role={role}
           canManage={canManage}
           initialRooms={roomData}
-          currentPage={currentPage}
-          totalPages={totalPages}
         />
       </div>
     </div>

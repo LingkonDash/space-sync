@@ -1,13 +1,14 @@
 'use server'
 
-import { getRooms } from "@/lib/api/rooms";
+import { getAdminRooms, getHostRooms } from "@/lib/api/rooms";
 import { getUserSession } from "@/lib/core/session"
 
 
 export const manageValidator = async () => {
     const user = await getUserSession();
+    let rooms = [];
+    if (user?.userRole === 'host') rooms = await getHostRooms()
+    if (user?.userRole === 'admin') rooms = await getAdminRooms()
 
-    const rooms = await getRooms()
-
-    return { role: 'admin', canManage: true, roomData: rooms, currentPage: 1, totalPages: 2, totalCount: 20 }
+    return { role: user?.userRole, canManage: true, roomData: rooms }
 }
