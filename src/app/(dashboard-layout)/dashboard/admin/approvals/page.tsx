@@ -1,4 +1,4 @@
-async function HostDashboardPage() {
+async function AdminDashboardPage() {
     return (
         <h1>
             hi from dashboard admin
@@ -6,4 +6,4 @@ async function HostDashboardPage() {
     )
 }
 
-export default HostDashboardPage
+export default AdminDashboardPage

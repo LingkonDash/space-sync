@@ -27,13 +27,20 @@ const PUBLIC_LINKS: NavLink[] = [
 const USER_LINKS: NavLink[] = [{ label: "My Bookings", href: "/dashboard/bookings" }];
 
 const HOST_LINKS: NavLink[] = [
-    { label: "Add Space", href: "/dashboard/host/add" },
-    { label: "Manage Spaces", href: "/dashboard/host/manage" },
+    { label: "Add Space", href: "/dashboard/item/add" },
+    { label: "Manage Spaces", href: "/dashboard/item/manage" },
+];
+const ADMIN_LINKS: NavLink[] = [
+    { label: "Approvals", href: "/dashboard/admin/approvals" },
+    { label: "Manage Spaces", href: "/dashboard/item/manage" },
 ];
 
 function getRoleLinks(role: SessionUser["userRole"]): NavLink[] {
-    if (role === "host" || role === "admin") {
+    if (role === "host") {
         return [...HOST_LINKS];
+    }
+    if (role === "admin") {
+        return [...ADMIN_LINKS];
     }
     return USER_LINKS;
 }
@@ -64,7 +71,7 @@ export default function NavbarClient({ user }: NavbarClientProps) {
     const profileWrapperRef = useRef<HTMLDivElement | null>(null);
 
     const navLinks = user ? [...PUBLIC_LINKS, ...getRoleLinks(user?.userRole)] : PUBLIC_LINKS;
-    const dashboardHref = user ? `/dashboard/${user.userRole}` : "/dashboard";
+    const dashboardHref = user ? `/dashboard/${user.userRole}` : "/login";
 
     // Entrance animation
     useEffect(() => {
@@ -139,7 +146,7 @@ export default function NavbarClient({ user }: NavbarClientProps) {
             ref={navRef}
             className="fixed top-0 left-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md"
         >
-            <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-8">
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2">
                     <Image src={logo} alt="SpaceSync logo" className="h-8 w-auto" priority />

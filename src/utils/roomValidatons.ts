@@ -13,5 +13,5 @@ export const reviewValidation = async () => {
 export const updateRoomValidation = async () => {
     const user = await getUserSession();
     
-    return {canUpdate: false, redirectLink: '/dashboard'}
+    return {canUpdate: false, redirectLink: '/dashboard/'}
 }
