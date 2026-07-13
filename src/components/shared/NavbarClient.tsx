@@ -27,13 +27,13 @@ const PUBLIC_LINKS: NavLink[] = [
 const USER_LINKS: NavLink[] = [{ label: "My Bookings", href: "/dashboard/bookings" }];
 
 const HOST_LINKS: NavLink[] = [
-    { label: "Add Space", href: "/items/add" },
-    { label: "Manage Spaces", href: "/items/manage" },
+    { label: "Add Space", href: "/dashboard/host/add" },
+    { label: "Manage Spaces", href: "/dashboard/host/manage" },
 ];
 
 function getRoleLinks(role: SessionUser["userRole"]): NavLink[] {
     if (role === "host" || role === "admin") {
-        return [...USER_LINKS, ...HOST_LINKS];
+        return [...HOST_LINKS];
     }
     return USER_LINKS;
 }
@@ -50,6 +50,8 @@ interface NavbarClientProps {
 }
 
 export default function NavbarClient({ user }: NavbarClientProps) {
+    console.log(user);
+    
     const [mobileOpen, setMobileOpen] = useState(false);
     const [profileOpen, setProfileOpen] = useState(false);
 
