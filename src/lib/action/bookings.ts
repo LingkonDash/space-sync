@@ -1,5 +1,5 @@
 import { InsertOneResult } from "mongodb";
-import { serverMutation } from "../core/server";
+import { protectedServerFetch, serverMutation } from "../core/server";
 import { Booking } from "@/types/bookings";
 
 
@@ -13,3 +13,8 @@ export const postBookings = async (
     booking
   );
 };
+
+export const getUserBookings = async () => {
+  const res = await protectedServerFetch(`/bookings/me`)
+  return res
+}

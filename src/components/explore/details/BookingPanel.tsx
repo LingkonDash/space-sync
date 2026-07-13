@@ -103,6 +103,8 @@ export default function BookingPanel({ room, canUpdate }: BookingPanelProps) {
 
       const bookingData: Booking = {
         spaceId: room._id,
+        spaceTitle: room.title,
+        spaceImages: room.images,
         userId: session.user.id,
         userEmail: session.user.email,
         date: form.date,
