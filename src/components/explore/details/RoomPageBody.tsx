@@ -64,12 +64,7 @@ export default function RoomPageBody({ room, reviews = [], relatedSpaces = [], c
         <div className="reveal-section mb-10">
           <BookingPanel
             room={room}
-            canUpdate={canUpdate}
-            onConfirmBooking={async (payload) => {
-              // TODO: call your backend booking endpoint
-              console.log("confirm booking", payload);
-            }}
-          />
+            canUpdate={canUpdate}/>
         </div>
 
         <div className="space-y-10">

@@ -57,7 +57,6 @@ interface NavbarClientProps {
 }
 
 export default function NavbarClient({ user }: NavbarClientProps) {
-    console.log(user);
     
     const [mobileOpen, setMobileOpen] = useState(false);
     const [profileOpen, setProfileOpen] = useState(false);
