@@ -7,15 +7,13 @@ interface UpdateRoomStatusResponse {
 }
 
 
-export const updateRoomStatus = async (
+export const updateRoomStatus = (
   spaceId: string,
   status: SpaceStatus,
-): Promise<UpdateRoomStatusResponse>  => {
-  const res = await serverMutation(
+) => {
+  return serverMutation<UpdateRoomStatusResponse>(
     `/rooms/${spaceId}/status`,
     { status },
     "PATCH"
   );
-
-  return res;
 };

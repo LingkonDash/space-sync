@@ -3,23 +3,9 @@ import { getUserBookings } from "@/lib/action/bookings";
 import { LiaCalendarDaySolid } from "react-icons/lia";
 import { CgLock } from "react-icons/cg";
 import { BiMapPin } from "react-icons/bi";
+import { Booking, BookingStatus } from "@/types/bookings";
 
-export type BookingStatus = "pending" | "confirmed" | "completed" | "cancelled";
 
-export interface UserBooking {
-  _id: string;
-  spaceId: string;
-  spaceTitle: string;
-  spaceImages: string[];
-  userId: string;
-  userEmail: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  totalPrice: string | number;
-  status: BookingStatus;
-  createdAt: string | Date;
-}
 
 const statusStyles: Record<BookingStatus, string> = {
   pending: "bg-[#F59E0B]/15 text-[#F59E0B]",
@@ -29,7 +15,7 @@ const statusStyles: Record<BookingStatus, string> = {
 };
 
 async function UserBookingsPage() {
-  const userBookings: UserBooking[] = await getUserBookings();
+  const userBookings: Booking[] = await getUserBookings();
 
   return (
     <div className="min-h-screen bg-neutral-bg px-4 py-6 sm:px-6 lg:px-8">
@@ -91,7 +77,7 @@ async function UserBookingsPage() {
   );
 }
 
-function BookingRow({ booking, isLast }: { booking: UserBooking; isLast: boolean }) {
+function BookingRow({ booking, isLast }: { booking: Booking; isLast: boolean }) {
   const price = Number(booking.totalPrice);
   const formattedDate = new Date(booking.date).toLocaleDateString("en-US", {
     month: "short",

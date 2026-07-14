@@ -3,11 +3,12 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "../auth";
+import { SessionUser } from "@/types/auth";
 
 export type UserRole = "user" | "host" | "admin";
 
 // ── Current logged-in user (or null) ─────────────────────────────────────────
-export const getUserSession = async () => {
+export const getUserSession = async (): Promise<SessionUser | null> => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });

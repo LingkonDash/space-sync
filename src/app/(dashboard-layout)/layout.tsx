@@ -1,7 +1,5 @@
-import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
 import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
-import { requireRole } from "@/lib/core/session";
+import { getUserSession } from "@/lib/core/session";
 import { redirect } from "next/navigation";
 
 export default async function DashboardLayout({
@@ -9,11 +7,11 @@ export default async function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const user = await getUserSession()
+  
+  if (!user) redirect('/unauthorized')
 
-  if(!session?.user) redirect('/unauthorized')
+  const session = { user }
 
   return (
     <>

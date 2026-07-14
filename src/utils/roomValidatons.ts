@@ -4,15 +4,15 @@ import { getUserSession } from "@/lib/core/session"
 
 
 export const reviewValidation = async () => {
-    const user = await getUserSession();
+    // const user = await getUserSession();
     
     // return true;
      return false;
 }
 
-export const updateRoomValidation = async () => {
+export const updateRoomValidation = async (email: string) => {
     const user = await getUserSession();
-    const canUpdate = user?.userRole === 'host' || user?.userRole === 'admin';
+    const canUpdate = user?.userRole === 'host' && user.email === email || user?.userRole === 'admin';
     
     return {canUpdate, redirectLink: '/dashboard/items/manage'}
 }

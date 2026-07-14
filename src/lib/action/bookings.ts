@@ -33,7 +33,7 @@ export const updateBookingStatus = async (
   bookingId: string,
   status: BookingStatus,
 ): Promise<UpdateRoomStatusResponse>  => {
-  const res = await serverMutation(
+  const res = await serverMutation<UpdateRoomStatusResponse>(
     `/bookings/${bookingId}/status`,
     { status },
     "PATCH"

@@ -8,20 +8,10 @@ import { BsShieldCheck } from "react-icons/bs";
 import { LuShieldAlert } from "react-icons/lu";
 import { LiaCalendarDaySolid } from "react-icons/lia";
 import EditProfileModal from "./EditProfileModal";
+import { SessionUser } from "@/types/auth";
 
 export type Role = "user" | "host" | "admin";
 
-export interface SessionUser {
-  id: string;
-  name: string;
-  email: string;
-  image?: string | null;
-  emailVerified: boolean;
-  userRole: Role;
-  banned: boolean;
-  createdAt: string | Date;
-  updatedAt: string | Date;
-}
 
 const roleStyles: Record<Role, string> = {
   admin: "bg-[#F59E0B]/15 text-[#F59E0B]",
@@ -79,7 +69,7 @@ export default function Profile({ user }: { user: SessionUser }) {
               {currentUser.name}
             </h1>
             <span
-              className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${roleStyles[currentUser.userRole]}`}
+              className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${roleStyles[currentUser.userRole as Role]}`}
             >
               {currentUser.userRole}
             </span>

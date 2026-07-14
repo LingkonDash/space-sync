@@ -5,11 +5,11 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 import { authClient } from "@/lib/auth-client";
 import uploadToImgBB from "@/utils/imgbb/uploadToImgBB";
-import type { SessionUser } from "./Profile";
 import { FiLoader } from "react-icons/fi";
 import { RxCrosshair2 } from "react-icons/rx";
 import { MdOutlineCameraAlt } from "react-icons/md";
 import { IoCloseSharp } from "react-icons/io5";
+import { SessionUser } from "@/types/auth";
 
 interface EditProfileModalProps {
   user: SessionUser;

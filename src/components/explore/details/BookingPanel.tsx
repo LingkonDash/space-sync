@@ -110,7 +110,7 @@ export default function BookingPanel({ room, canUpdate }: BookingPanelProps) {
         date: form.date,
         startTime: form.startTime,
         endTime: form.endTime,
-        totalPrice: estimatedCost,
+        totalPrice: Number(estimatedCost),
         status: "pending" as BookingStatus,
       };
 

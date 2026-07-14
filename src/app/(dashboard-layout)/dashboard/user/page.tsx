@@ -2,23 +2,8 @@ import { FiCalendar, FiDollarSign, FiClock, FiCheckCircle, FiBox, FiArrowRight }
 import Link from "next/link";
 import { getUserBookings } from "@/lib/action/bookings";
 import BookingAnalyticsCharts from "./BookingAnalyticsCharts";
+import { Booking, BookingStatus } from "@/types/bookings";
 
-export type BookingStatus = "pending" | "confirmed" | "completed" | "cancelled";
-
-export interface UserBooking {
-  _id: string;
-  spaceId: string;
-  spaceTitle: string;
-  spaceImages: string[];
-  userId: string;
-  userEmail: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  totalPrice: string | number;
-  status: BookingStatus;
-  createdAt: string | Date;
-}
 
 const statusStyles: Record<BookingStatus, string> = {
   pending: "bg-[#F59E0B]/15 text-[#F59E0B]",
@@ -28,7 +13,7 @@ const statusStyles: Record<BookingStatus, string> = {
 };
 
 async function UserDashboardPage() {
-  const bookings: UserBooking[] = await getUserBookings();
+  const bookings: Booking[] = await getUserBookings();
 
   // --- Core stats ---
   const totalBookings = bookings.length;
@@ -70,12 +55,7 @@ async function UserDashboardPage() {
     .sort((a, b) => new Date(a.month).getTime() - new Date(b.month).getTime());
 
   // --- Recent bookings (new section) ---
-  const recentBookings = [...bookings]
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    )
-    .slice(0, 5);
+  const recentBookings = [...bookings].slice(0, 5);
 
   return (
     <div className="min-h-screen bg-neutral-bg px-4 py-6 sm:px-6 lg:px-8">

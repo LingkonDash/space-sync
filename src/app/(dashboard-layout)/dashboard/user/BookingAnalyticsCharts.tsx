@@ -121,7 +121,7 @@ export default function BookingAnalyticsCharts({
                   border: "1px solid #E2E8F0",
                   fontSize: 13,
                 }}
-                formatter={(value: number) => [`৳${value.toFixed(2)}`, "Spent"]}
+                formatter={(value) => [`৳${Number(value).toFixed(2)}`, "Spent"]}
               />
               <Bar dataKey="total" fill="#4F46E5" radius={[6, 6, 0, 0]} maxBarSize={48} />
             </BarChart>

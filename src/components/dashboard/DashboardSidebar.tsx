@@ -21,16 +21,10 @@ import {
 } from "react-icons/md";
 import { toast } from "react-toastify";
 import Image from "next/image";
+import { SessionUser } from "@/types/auth";
 
 // ─── Types ─────────────────────────────────────────────────────────
 type Role = "admin" | "host" | "user";
-
-interface SessionUser {
-  name?: string;
-  email?: string;
-  image?: string;
-  userRole?: Role;
-}
 
 interface Session {
   user?: SessionUser;
@@ -179,7 +173,7 @@ function SidebarContent({
   router: ReturnType<typeof useRouter>;
   showCloseButton?: boolean;
 }) {
-  const role: Role = session?.user?.userRole || "user";
+  const role: Role = (session?.user?.userRole as Role) ?? "user";
   const navItems = getNavItems(role);
   const roleConfig = ROLE_CONFIG[role];
   const name = session?.user?.name || "User";
