@@ -16,7 +16,7 @@ const LINKS = {
     label: 'View all',
   },
   // Prefix used to build each category's destination: `${categoryBase}${slug}`
-  categoryBase: '/spaces?category=',
+  categoryBase: '/explore?category=',
 };
 
 // TypeScript Interface for Category Data
@@ -35,28 +35,28 @@ const categories: CategoryItem[] = [
     title: 'Coworking Spaces',
     description: 'Work in inspiring shared environments',
     imageUrl: 'https://images.unsplash.com/photo-1531971589569-0d9370cbe1e5?auto=format&fit=crop&w=500&q=80',
-    slug: 'coworking-spaces',
+    slug: 'Co-working',
   },
   {
     id: '2',
     title: 'Meeting Rooms',
     description: 'Professional spaces for productive meetings',
     imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=500&q=80',
-    slug: 'meeting-rooms',
+    slug: 'Meeting+Room',
   },
   {
     id: '3',
     title: 'Event Halls',
     description: 'Host events that leave a lasting impression',
     imageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=500&q=80',
-    slug: 'event-halls',
+    slug: 'Event+Hall',
   },
   {
     id: '4',
     title: 'Creative Studios',
     description: 'Built for creators, innovators & teams',
     imageUrl: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=500&q=80',
-    slug: 'creative-studios',
+    slug: 'Studio',
   },
 ];
 

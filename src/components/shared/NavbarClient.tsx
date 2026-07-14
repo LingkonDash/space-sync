@@ -24,7 +24,7 @@ const PUBLIC_LINKS: NavLink[] = [
     { label: "Contact", href: "/contact" },
 ];
 
-const USER_LINKS: NavLink[] = [{ label: "My Bookings", href: "/dashboard/bookings" }];
+const USER_LINKS: NavLink[] = [{ label: "My Bookings", href: "/dashboard/user/bookings" }];
 
 const HOST_LINKS: NavLink[] = [
     { label: "Add Space", href: "/dashboard/items/add" },

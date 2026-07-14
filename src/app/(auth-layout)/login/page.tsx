@@ -160,7 +160,7 @@ export default function LoginPage() {
                     Password
                   </label>
                   <Link
-                    href="/forgot-password"
+                    href="#"
                     className="text-sm text-slate-500 hover:text-[var(--color-primary)] hover:underline transition"
                   >
                     Forgot Password?
@@ -223,11 +223,11 @@ export default function LoginPage() {
                     onClick={() => setAgreed((v) => !v)}
                   >
                     I agree to the SpaceSync{" "}
-                    <Link href="/terms" className="text-[var(--color-primary)] hover:underline font-medium">
+                    <Link href="#" className="text-[var(--color-primary)] hover:underline font-medium">
                       Terms of Service
                     </Link>{" "}
                     and{" "}
-                    <Link href="/privacy" className="text-[var(--color-primary)] hover:underline font-medium">
+                    <Link href="#" className="text-[var(--color-primary)] hover:underline font-medium">
                       Privacy Policy
                     </Link>
                   </label>

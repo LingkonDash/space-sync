@@ -493,11 +493,11 @@ export default function RegisterPage() {
                     onClick={() => setAgreed((v) => !v)}
                   >
                     I agree to the SpaceSync{" "}
-                    <Link href="/terms" className="text-[var(--color-primary)] hover:underline font-medium">
+                    <Link href="#" className="text-[var(--color-primary)] hover:underline font-medium">
                       Terms of Service
                     </Link>{" "}
                     and{" "}
-                    <Link href="/privacy" className="text-[var(--color-primary)] hover:underline font-medium">
+                    <Link href="#" className="text-[var(--color-primary)] hover:underline font-medium">
                       Privacy Policy
                     </Link>
                   </label>
