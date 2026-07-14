@@ -5,24 +5,7 @@ import Image from "next/image";
 import { updateRoomStatus } from "@/lib/action/admin/rooms";
 import { FiMapPin, FiUsers, FiMail } from "react-icons/fi";
 import { toast } from "react-toastify";
-
-export type SpaceStatus = "pending" | "approved" | "rejected";
-
-export interface Space {
-    _id: string;
-    title: string;
-    shortDescription: string;
-    images: string[];
-    category: string;
-    location: string;
-    hostEmail: string;
-    hostName: string;
-    city: string;
-    pricePerHour: number;
-    capacity: number;
-    status: SpaceStatus;
-    createdAt?: string | Date;
-}
+import { Space, SpaceStatus } from "@/types/space";
 
 // Soft, low-contrast badge tones
 const statusStyles: Record<SpaceStatus, string> = {
@@ -81,7 +64,7 @@ function StatusControl({
         startTransition(async () => {
             try {
                 const res = await updateRoomStatus(room._id, next);
-                if (res && (res.acknowledged === false || res.modifiedCount === 0)) {
+                if (res && (res.modifiedCount === 0)) {
                     toast.error('Update failed. try again')
                     setError("Update failed.");
                     return;

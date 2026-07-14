@@ -1,9 +1,17 @@
-import { adminClient, jwtClient } from "better-auth/client/plugins"
-import { createAuthClient } from "better-auth/react"
+import { createAuthClient } from "better-auth/react";
+import {
+  adminClient,
+  jwtClient,
+  inferAdditionalFields,
+} from "better-auth/client/plugins";
+
+import type { auth } from "@/lib/auth";
+
 export const authClient = createAuthClient({
-    /** The base URL of the server (optional if you're using the same domain) */
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-    plugins: [
-        adminClient(), jwtClient(),
-    ]
-})
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  plugins: [
+    inferAdditionalFields<typeof auth>(),
+    adminClient(),
+    jwtClient(),
+  ],
+});
