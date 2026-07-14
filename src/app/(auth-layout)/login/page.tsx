@@ -75,22 +75,10 @@ export default function LoginPage() {
         return;
       }
 
-      // Step 3: Role-based redirect
-      const userRole = (data?.user?.userRole as UserRole) || "user";
-
-      let destination = "/";
-
-      if (userRole === "host") {
-        destination = "/dashboard/host";
-      } else if (userRole === "admin") {
-        destination = "/dashboard/admin";
-      }
-
-      if (userRole === "user") toast.success("Welcome back! Redirecting to Home.");
-      else toast.success("Welcome back! Redirecting to your dashboard.");
+      toast.success("Welcome back! Redirecting to Home.");
 
       setTimeout(() => {
-        router.push(destination);
+        router.push('/');
       }, 1500);
     } catch {
       toast.error("Something went wrong. Please try again.");
