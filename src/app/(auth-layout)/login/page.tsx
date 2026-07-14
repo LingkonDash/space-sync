@@ -79,6 +79,7 @@ export default function LoginPage() {
 
       setTimeout(() => {
         router.push('/');
+        router.refresh()
       }, 1500);
     } catch {
       toast.error("Something went wrong. Please try again.");

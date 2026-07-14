@@ -159,6 +159,7 @@ export default function RegisterPage() {
       setSuccessMsg("Account created! Redirecting…");
 
       setTimeout(() => {
+        router.refresh()
         router.push("/");
       }, 1200);
     } catch {
