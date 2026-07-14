@@ -5,7 +5,7 @@ export type SpaceStatus = "pending" | "approved" | "rejected";
 
 
 export interface Space {
-  _id?: string;
+  _id: string;
   title: string;
   shortDescription: string;
   fullDescription?: string;
@@ -22,5 +22,23 @@ export interface Space {
   rating: number;
   reviewCount: number;
   status: SpaceStatus;
-  createdAt?: Date;
+  createdAt: Date;
+}
+
+
+export interface CreateSpace {
+  _id?: string;
+  title: string;
+  shortDescription: string;
+  fullDescription?: string;
+  images: string[];
+  categoryCode: CategoryCode;
+  category: CategoryLabel;
+  location: string;
+  hostEmail: string;
+  hostName: string;
+  city: string;
+  pricePerHour: number;
+  capacity: number;
+  amenities?: string[];
 }

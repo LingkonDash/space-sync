@@ -3,47 +3,8 @@ import Link from "next/link";
 import { getAdminBookings } from "@/lib/action/bookings";
 import { getAdminRooms } from "@/lib/api/rooms";
 import AdminAnalyticsCharts from "./AdminAnalyticsCharts";
-
-export type BookingStatus = "pending" | "confirmed" | "completed" | "cancelled";
-export type CategoryCode = "co-working" | "meeting-room" | "event-hall" | "studio";
-export type CategoryLabel = "Co-working" | "Meeting Room" | "Event Hall" | "Studio";
-export type SpaceStatus = "pending" | "approved" | "rejected";
-
-export interface AdminBooking {
-    _id: string;
-    spaceId: string;
-    spaceTitle: string;
-    spaceImages: string[];
-    userId: string;
-    userEmail: string;
-    date: string;
-    startTime: string;
-    endTime: string;
-    totalPrice: string | number;
-    status: BookingStatus;
-    createdAt: string | Date;
-}
-
-export interface Space {
-    _id?: string;
-    title: string;
-    shortDescription: string;
-    fullDescription?: string;
-    images: string[];
-    categoryCode: CategoryCode;
-    category: CategoryLabel;
-    location: string;
-    hostEmail: string;
-    hostName: string;
-    city: string;
-    pricePerHour: number;
-    capacity: number;
-    amenities?: string[];
-    rating: number;
-    reviewCount: number;
-    status: SpaceStatus;
-    createdAt?: Date;
-}
+import { BookingStatus } from "@/types/bookings";
+import { SpaceStatus } from "@/types/space";
 
 const bookingStatusStyles: Record<BookingStatus, string> = {
     pending: "bg-[#F59E0B]/10 text-[#B45309]",
@@ -53,10 +14,8 @@ const bookingStatusStyles: Record<BookingStatus, string> = {
 };
 
 async function AdminDashboardPage() {
-    const [bookings, rooms]: [AdminBooking[], Space[]] = await Promise.all([
-        getAdminBookings(),
-        getAdminRooms(),
-    ]);
+    const bookings = await getAdminBookings();
+    const rooms = await getAdminRooms();
 
     // --- Booking stats ---
     const totalBookings = bookings.length;

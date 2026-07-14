@@ -16,24 +16,7 @@ import {
   MdLocalOffer,
 } from "react-icons/md";
 import { LuLoaderCircle } from "react-icons/lu";
-import { CategoryCode, CategoryLabel } from "@/types/space";
-
-interface Space {
-  _id?: string;
-  title: string;
-  shortDescription: string;
-  fullDescription?: string;
-  images: string[];
-  categoryCode: CategoryCode;
-  category: CategoryLabel;
-  location: string;
-  hostEmail: string;
-  hostName: string;
-  city: string;
-  pricePerHour: number;
-  capacity: number;
-  amenities?: string[];
-}
+import { CategoryCode, CategoryLabel, CreateSpace } from "@/types/space";
 
 const CATEGORIES: { code: CategoryCode; label: CategoryLabel }[] = [
   { code: "co-working", label: "Co-working" },
@@ -189,7 +172,7 @@ function AddItemsPage() {
 
       const selectedCategory = CATEGORIES.find((c) => c.code === categoryCode)!;
 
-      const space: Space = {
+      const space: CreateSpace = {
         title: title.trim(),
         shortDescription: shortDescription.trim(),
         fullDescription: fullDescription.trim() || undefined,

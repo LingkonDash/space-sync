@@ -162,7 +162,7 @@ export default function AdminAnalyticsCharts({
               <Tooltip
                 cursor={{ fill: "#F8FAFC" }}
                 contentStyle={tooltipStyle}
-                formatter={(value) => [`৳${Number(value).toFixed(2)}`, "Revenue"]}
+                formatter={(value) => [`$${Number(value).toFixed(2)}`, "Revenue"]}
               />
               <Bar dataKey="total" fill="#4F46E5" radius={[6, 6, 0, 0]} maxBarSize={48} />
             </BarChart>

@@ -1,8 +1,9 @@
 import { getHostBookings } from "@/lib/action/bookings";
-import HostBookingsTable, { UserBooking } from "./Hostbookingstable";
+import { Booking } from "@/types/bookings";
+import HostBookingsTable from "./Hostbookingstable";
 
 async function HostBookingsPage() {
-  const hostBookings: UserBooking[] = await getHostBookings();
+  const hostBookings: Booking[] = await getHostBookings();
   
 
   return (

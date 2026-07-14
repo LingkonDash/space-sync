@@ -2,7 +2,10 @@ import { InsertOneResult } from "mongodb";
 import { protectedServerFetch, serverMutation } from "../core/server";
 import { Booking, BookingStatus } from "@/types/bookings";
 
-
+interface UpdateRoomStatusResponse {
+    acknowledged: boolean;
+    modifiedCount: number;
+}
 
 // ── Create bookings ───────────────────────────────────────────────────────────────
 export const postBookings = async (
@@ -14,25 +17,22 @@ export const postBookings = async (
   );
 };
 
-export const getUserBookings = async () => {
-  const res = await protectedServerFetch(`/bookings/me`)
-  return res
-}
+export const getUserBookings = async (): Promise<Booking[]> => {
+  return protectedServerFetch<Booking[]>(`/bookings/me`);
+};
 
-export const getHostBookings = async () => {
-  const res = await protectedServerFetch(`/bookings/host`)
-  return res
-}
+export const getHostBookings = async (): Promise<Booking[]> => {
+  return protectedServerFetch<Booking[]>(`/bookings/host`);
+};
 
-export const getAdminBookings = async () => {
-  const res = await protectedServerFetch(`/bookings/admin`)
-  return res
+export const getAdminBookings = async (): Promise<Booking[]> => {
+  return protectedServerFetch<Booking[]>(`/bookings/admin`);
 }
 
 export const updateBookingStatus = async (
   bookingId: string,
   status: BookingStatus,
-) => {
+): Promise<UpdateRoomStatusResponse>  => {
   const res = await serverMutation(
     `/bookings/${bookingId}/status`,
     { status },

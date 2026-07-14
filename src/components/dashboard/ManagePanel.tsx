@@ -58,7 +58,7 @@ const STATUS_STYLES: Record<SpaceStatus, { bg: string; text: string; dot: string
 };
 
 interface ManagePanelProps {
-  role: "host" | "admin";
+  role: string;
   canManage: boolean;
   initialRooms: Space[];
 }

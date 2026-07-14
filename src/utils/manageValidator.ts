@@ -6,9 +6,17 @@ import { getUserSession } from "@/lib/core/session"
 
 export const manageValidator = async () => {
     const user = await getUserSession();
-    let rooms = [];
-    if (user?.userRole === 'host') rooms = await getHostRooms()
-    if (user?.userRole === 'admin') rooms = await getAdminRooms()
+    if (user?.userRole === 'host') {
 
-    return { role: user?.userRole, canManage: true, roomData: rooms }
+        const rooms = await getHostRooms()
+
+        return { role: user?.userRole, canManage: true, roomData: rooms }
+    }
+    if (user?.userRole === 'admin') {
+        const rooms = await getAdminRooms()
+        return { role: user?.userRole, canManage: true, roomData: rooms }
+
+    }
+    return { role: 'user', canManage:false, roomData:[] }
+
 }

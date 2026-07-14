@@ -6,23 +6,8 @@ import { updateBookingStatus } from "@/lib/action/bookings";
 import { LiaCalendarDaySolid } from "react-icons/lia";
 import { CgLock } from "react-icons/cg";
 import { BiMapPin } from "react-icons/bi";
+import { Booking, BookingStatus } from "@/types/bookings";
 
-export type BookingStatus = "pending" | "confirmed" | "completed" | "cancelled";
-
-export interface UserBooking {
-  _id: string;
-  spaceId: string;
-  spaceTitle: string;
-  spaceImages: string[];
-  userId: string;
-  userEmail: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  totalPrice: string | number;
-  status: BookingStatus;
-  createdAt: string | Date;
-}
 
 const statusStyles: Record<BookingStatus, string> = {
   pending: "bg-[#F59E0B]/15 text-[#F59E0B]",
@@ -48,7 +33,7 @@ const nextStatusMap: Partial<
   },
 };
 
-export default function HostBookingsTable({ bookings }: { bookings: UserBooking[] }) {
+export default function HostBookingsTable({ bookings }: { bookings: Booking[] }) {
   const [rows, setRows] = useState(bookings);
 
   if (rows.length === 0) return <EmptyState />;
@@ -115,7 +100,7 @@ function StatusControl({
   booking,
   onStatusChange,
 }: {
-  booking: UserBooking;
+  booking: Booking;
   onStatusChange: (bookingId: string, newStatus: BookingStatus) => void;
 }) {
   const [isPending, startTransition] = useTransition();
@@ -137,13 +122,13 @@ function StatusControl({
     setError(null);
     startTransition(async () => {
       try {
-        const res = await updateBookingStatus(booking._id, action.next);
+        const res = await updateBookingStatus(booking._id as string, action.next);
         // updateBookingStatus resolves with a MongoDB updateOne-style result
         if (res && (res.acknowledged === false || res.modifiedCount === 0)) {
           setError("Update failed. Try again.");
           return;
         }
-        onStatusChange(booking._id, action.next);
+        onStatusChange(booking._id as string, action.next);
       } catch {
         setError("Something went wrong.");
       }
@@ -175,7 +160,7 @@ function BookingRow({
   isLast,
   onStatusChange,
 }: {
-  booking: UserBooking;
+  booking: Booking;
   isLast: boolean;
   onStatusChange: (bookingId: string, newStatus: BookingStatus) => void;
 }) {
@@ -246,7 +231,7 @@ function BookingCard({
   booking,
   onStatusChange,
 }: {
-  booking: UserBooking;
+  booking: Booking;
   onStatusChange: (bookingId: string, newStatus: BookingStatus) => void;
 }) {
   const price = Number(booking.totalPrice);

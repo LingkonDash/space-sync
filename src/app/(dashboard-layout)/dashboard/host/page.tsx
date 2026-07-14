@@ -3,47 +3,8 @@ import Link from "next/link";
 import { getHostBookings } from "@/lib/action/bookings";
 import HostAnalyticsCharts from "./HostAnalyticsCharts";
 import { manageValidator } from "@/utils/manageValidator";
-
-export type BookingStatus = "pending" | "confirmed" | "completed" | "cancelled";
-export type CategoryCode = "co-working" | "meeting-room" | "event-hall" | "studio";
-export type CategoryLabel = "Co-working" | "Meeting Room" | "Event Hall" | "Studio";
-export type SpaceStatus = "pending" | "approved" | "rejected";
-
-export interface HostBooking {
-  _id: string;
-  spaceId: string;
-  spaceTitle: string;
-  spaceImages: string[];
-  userId: string;
-  userEmail: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  totalPrice: string | number;
-  status: BookingStatus;
-  createdAt: string | Date;
-}
-
-export interface Space {
-  _id?: string;
-  title: string;
-  shortDescription: string;
-  fullDescription?: string;
-  images: string[];
-  categoryCode: CategoryCode;
-  category: CategoryLabel;
-  location: string;
-  hostEmail: string;
-  hostName: string;
-  city: string;
-  pricePerHour: number;
-  capacity: number;
-  amenities?: string[];
-  rating: number;
-  reviewCount: number;
-  status: SpaceStatus;
-  createdAt?: Date;
-}
+import { Booking, BookingStatus } from "@/types/bookings";
+import { CategoryLabel, Space, SpaceStatus } from "@/types/space";
 
 const statusStyles: Record<BookingStatus, string> = {
   pending: "bg-[#F59E0B]/15 text-[#F59E0B]",
@@ -53,7 +14,7 @@ const statusStyles: Record<BookingStatus, string> = {
 };
 
 async function HostDashboardPage() {
-  const bookings: HostBooking[] = await getHostBookings();
+  const bookings: Booking[] = await getHostBookings();
   const { role, canManage, roomData } = await manageValidator();
   const spaces: Space[] = roomData ?? [];
 
@@ -73,8 +34,6 @@ async function HostDashboardPage() {
   const upcomingCount = bookings.filter(
     (b) => b.status === "pending" || b.status === "confirmed"
   ).length;
-
-  const completedCount = bookings.filter((b) => b.status === "completed").length;
 
   // --- Bookings by status (chart 1) ---
   const statusOrder: BookingStatus[] = ["pending", "confirmed", "completed", "cancelled"];
@@ -121,9 +80,7 @@ async function HostDashboardPage() {
     .filter((entry) => entry.value > 0);
 
   // --- Recent bookings ---
-  const recentBookings = [...bookings]
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-    .slice(0, 5);
+  const recentBookings = [...bookings].slice(0, 5);
 
   return (
     <div className="min-h-screen bg-neutral-bg px-4 py-6 sm:px-6 lg:px-8">

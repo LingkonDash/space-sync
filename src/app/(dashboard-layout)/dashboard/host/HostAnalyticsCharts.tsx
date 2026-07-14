@@ -131,7 +131,7 @@ export default function HostAnalyticsCharts({
               <Tooltip
                 cursor={{ fill: "#F8FAFC" }}
                 contentStyle={tooltipStyle}
-                formatter={(value: number) => [`৳${value.toFixed(2)}`, "Earned"]}
+                formatter={(value) => [`$${Number(value).toFixed(2)}`, "Earned"]}
               />
               <Bar dataKey="total" fill="#F59E0B" radius={[6, 6, 0, 0]} maxBarSize={48} />
             </BarChart>

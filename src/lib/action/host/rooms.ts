@@ -1,7 +1,7 @@
 "use server";
 
 import { serverMutation } from "../../core/server";
-import type { Space } from "@/types/space";
+import type { CreateSpace, Space } from "@/types/space";
 import type {
   InsertOneResult,
   UpdateResult,
@@ -10,9 +10,9 @@ import type {
 
 // ── Create room ───────────────────────────────────────────────────────────────
 export const addRoom = async (
-  space: Space
+  space: CreateSpace
 ): Promise<InsertOneResult> => {
-  return serverMutation<InsertOneResult, Space>(
+  return serverMutation<InsertOneResult, CreateSpace>(
     "/rooms",
     space
   );
