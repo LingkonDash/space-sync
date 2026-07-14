@@ -1,5 +1,6 @@
 import Banner from "@/components/home/Banner";
 import Category from "@/components/home/Category";
+import FAQ from "@/components/home/FAQ";
 import FeaturedRooms from "@/components/home/FeaturedRooms";
 import HowItWorks from "@/components/home/HowItWorks";
 import ImpactMetrics from "@/components/home/ImpactMetrics";
@@ -15,6 +16,7 @@ export default function Home() {
       <FeaturedRooms />
       <WhyChooseUs />
       <HowItWorks />
+      <FAQ />
       <TestimonialSlider />
     </>
   );

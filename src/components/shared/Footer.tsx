@@ -4,23 +4,15 @@ import React, { useEffect, useRef, MouseEvent } from "react";
 import { gsap } from "gsap";
 import Image from "next/image";
 import logo from "@/images/spaceSyncLogo.svg";
-import { LiaLinkedin } from "react-icons/lia";
-import { PiXCircleBold } from "react-icons/pi";
-import { BsGithub, BsInstagram, BsLinkedin, BsTwitter } from "react-icons/bs";
+import { BsGithub, BsInstagram, BsLinkedin } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
 import { IconType } from "react-icons";
 import Link from "next/link";
-
-
 
 interface SocialLinkProps {
   platform: string;
   link: string;
   iconLetter: IconType;
-}
-
-interface FooterLinkProps {
-  label: string;
 }
 
 export default function Footer(): React.JSX.Element {
@@ -29,7 +21,6 @@ export default function Footer(): React.JSX.Element {
   useEffect(() => {
     if (!footerRef.current) return;
 
-    // Initial Scroll/Load Reveal Animation via GSAP Context
     const ctx = gsap.context(() => {
       gsap.from(".animate-cta", {
         y: 50,
@@ -51,7 +42,6 @@ export default function Footer(): React.JSX.Element {
     return () => ctx.revert();
   }, []);
 
-  // Micro-interactions for buttons
   const handleMouseEnter = (e: MouseEvent<HTMLButtonElement>): void => {
     gsap.to(e.currentTarget, { scale: 1.05, duration: 0.2, ease: "power1.out" });
   };
@@ -69,7 +59,6 @@ export default function Footer(): React.JSX.Element {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
         <div className="animate-cta relative rounded-3xl bg-gradient-to-r from-[#4F46E5] via-[#4338CA] to-[#0D9488] p-8 md:p-12 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl shadow-[#4F46E5]/20">
 
-          {/* Subtle Abstract Background Geometric Grid */}
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] rounded-3xl pointer-events-none"></div>
 
           <div className="space-y-4 max-w-xl text-center lg:text-left relative z-10">
@@ -81,7 +70,6 @@ export default function Footer(): React.JSX.Element {
             </p>
           </div>
 
-          {/* Banner Newsletter Form */}
           <form
             onSubmit={(e) => e.preventDefault()}
             className="w-full max-w-md flex flex-col sm:flex-row gap-3 relative z-10"
@@ -107,8 +95,8 @@ export default function Footer(): React.JSX.Element {
         </div>
       </div>
 
-      {/* Main Grid Content Area */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 md:gap-8 border-b border-slate-800">
+      {/* Main Grid Content Area — 4 real columns: Brand, Product, Company, Newsletter */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-8 border-b border-slate-800">
 
         {/* Brand Meta Column */}
         <div className="animate-col sm:col-span-2 lg:col-span-1 space-y-5">
@@ -142,7 +130,7 @@ export default function Footer(): React.JSX.Element {
           </div>
         </div>
 
-        {/* Product Navigation */}
+        {/* Product Navigation — only real, working links */}
         <div className="animate-col space-y-4">
           <h3 className="text-sm font-semibold tracking-wider text-slate-200 uppercase">Product</h3>
           <ul className="space-y-2.5 text-sm text-slate-400">
@@ -150,7 +138,6 @@ export default function Footer(): React.JSX.Element {
               { label: "Explore Spaces", href: "/explore" },
               { label: "Become a Host", href: "/register" },
               { label: "How It Works", href: "/#howItWorks" },
-              { label: "Features", href: "/#features" },
             ].map((link) => (
               <li key={link.label}>
                 <Link
@@ -164,32 +151,25 @@ export default function Footer(): React.JSX.Element {
           </ul>
         </div>
 
-        {/* Company Profiles */}
+        {/* Company — only real, working links */}
         <div className="animate-col space-y-4">
           <h3 className="text-sm font-semibold tracking-wider text-slate-200 uppercase">Company</h3>
           <ul className="space-y-2.5 text-sm text-slate-400">
-            {["About Us", "Careers", "Blog", "Press Kit", "Contact"].map((link: string) => (
-              <li key={link}>
-                <Link href="/about" className="hover:text-[#4F46E5] transition-colors duration-200">{link}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Support Options */}
-        <div className="animate-col space-y-4">
-          <h3 className="text-sm font-semibold tracking-wider text-slate-200 uppercase">Support</h3>
-          <ul className="space-y-2.5 text-sm text-slate-400">
-            {["Help Center", "Safety", "Cancellation Options", "Trust & Security", "Community"].map((link: string) => (
-              <li key={link}>
-                <Link href="#" className="hover:text-[#4F46E5] transition-colors duration-200">{link}</Link>
+            {[
+              { label: "About Us", href: "/about" },
+              { label: "Contact", href: "/contact" },
+            ].map((link) => (
+              <li key={link.label}>
+                <Link href={link.href} className="hover:text-[#4F46E5] transition-colors duration-200">
+                  {link.label}
+                </Link>
               </li>
             ))}
           </ul>
         </div>
 
         {/* Integrated Footer Newsletter Form */}
-        <div className="animate-col sm:col-span-2 md:col-span-4 lg:col-span-1 space-y-4">
+        <div className="animate-col sm:col-span-2 lg:col-span-1 space-y-4">
           <h3 className="text-sm font-semibold tracking-wider text-slate-200 uppercase">Stay Connected</h3>
           <p className="text-slate-400 text-sm leading-relaxed">
             Subscribe to get the latest updates, workspace tips, and offers.
@@ -219,15 +199,10 @@ export default function Footer(): React.JSX.Element {
         </div>
       </div>
 
-      {/* Bottom Legal bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+      {/* Bottom bar — copyright only, no dead legal links */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-center items-center text-xs text-slate-500">
         <div>
           &copy; {new Date().getFullYear()} SpaceSync. All rights reserved.
-        </div>
-        <div className="flex gap-6">
-          <a href="#" className="hover:text-slate-300 transition-colors">Terms of Service</a>
-          <a href="#" className="hover:text-slate-300 transition-colors">Privacy Policy</a>
-          <a href="#" className="hover:text-slate-300 transition-colors">Cookies</a>
         </div>
       </div>
     </footer>
