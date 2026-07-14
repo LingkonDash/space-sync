@@ -28,6 +28,7 @@ interface AdminAnalyticsChartsProps {
   statusBreakdown: NamedDatum[];
   monthlyRevenue: MonthlyDatum[];
   topSpaces: NamedDatum[];
+  spaceStatusBreakdown: NamedDatum[];
 }
 
 const STATUS_COLORS: Record<string, string> = {
@@ -35,6 +36,12 @@ const STATUS_COLORS: Record<string, string> = {
   Confirmed: "#4F46E5",
   Completed: "#0D9488",
   Cancelled: "#EF4444",
+};
+
+const SPACE_STATUS_COLORS: Record<string, string> = {
+  Pending: "#F59E0B",
+  Approved: "#0D9488",
+  Rejected: "#EF4444",
 };
 
 const tooltipStyle = {
@@ -47,6 +54,7 @@ export default function AdminAnalyticsCharts({
   statusBreakdown,
   monthlyRevenue,
   topSpaces,
+  spaceStatusBreakdown,
 }: AdminAnalyticsChartsProps) {
   return (
     <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
@@ -74,6 +82,44 @@ export default function AdminAnalyticsCharts({
               >
                 {statusBreakdown.map((entry) => (
                   <Cell key={entry.name} fill={STATUS_COLORS[entry.name] ?? "#94A3B8"} />
+                ))}
+              </Pie>
+              <Tooltip contentStyle={tooltipStyle} />
+              <Legend
+                verticalAlign="bottom"
+                height={36}
+                iconType="circle"
+                wrapperStyle={{ fontSize: 12, color: "#0F172A" }}
+              />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Pie chart — spaces by approval status */}
+      <div className="rounded-2xl border border-neutral-border bg-white p-5 shadow-sm">
+        <h2 className="mb-1 text-sm font-semibold text-neutral-text">
+          Spaces by approval status
+        </h2>
+        <p className="mb-4 text-xs text-neutral-text/50">
+          How many spaces are pending, approved or rejected
+        </p>
+
+        <div className="h-64 w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie
+                data={spaceStatusBreakdown}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                innerRadius={55}
+                outerRadius={85}
+                paddingAngle={3}
+              >
+                {spaceStatusBreakdown.map((entry) => (
+                  <Cell key={entry.name} fill={SPACE_STATUS_COLORS[entry.name] ?? "#94A3B8"} />
                 ))}
               </Pie>
               <Tooltip contentStyle={tooltipStyle} />
@@ -125,7 +171,7 @@ export default function AdminAnalyticsCharts({
       </div>
 
       {/* Horizontal bar chart — top spaces by bookings */}
-      <div className="rounded-2xl border border-neutral-border bg-white p-5 shadow-sm lg:col-span-2">
+      <div className="rounded-2xl border border-neutral-border bg-white p-5 shadow-sm">
         <h2 className="mb-1 text-sm font-semibold text-neutral-text">
           Top spaces
         </h2>

@@ -9,7 +9,7 @@ export const updateRoomStatus = async (
   status: SpaceStatus,
 ) => {
   const res = await serverMutation(
-    `/bookings/${spaceId}/status`,
+    `/rooms/${spaceId}/status`,
     { status },
     "PATCH"
   );

@@ -106,7 +106,7 @@ export default function ManagePanel({
         </p>
         {role === "host" && (
           <Link
-            href="/dashboard/item/add"
+            href="/dashboard/items/add"
             className="inline-flex items-center gap-2 rounded-xl bg-[#4F46E5] hover:bg-[#4338ca] text-white font-medium text-sm px-5 py-2.5 shadow-md shadow-[#4F46E5]/25 transition-all"
           >
             <MdAddBox className="size-4" />
