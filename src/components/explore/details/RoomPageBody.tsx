@@ -107,7 +107,7 @@ export default function RoomPageBody({ room, reviews = [], relatedSpaces = [], c
             </div>
           </section>
 
-          <div className="reveal-section">
+          {/* <div className="reveal-section">
             <RoomReviews
               room={room}
               reviews={reviews}
@@ -117,7 +117,7 @@ export default function RoomPageBody({ room, reviews = [], relatedSpaces = [], c
                 console.log("submit review", payload);
               }}
             />
-          </div>
+          </div> */}
 
           {relatedSpaces.length > 0 && (
             <section className="reveal-section border-t border-neutral-border pt-8">
@@ -126,7 +126,7 @@ export default function RoomPageBody({ room, reviews = [], relatedSpaces = [], c
                 {relatedSpaces.map((s) => (
                   <a
                     key={s._id}
-                    href={`/rooms/${s._id}`}
+                    href={`/explore/${s._id}`}
                     className="w-56 shrink-0 overflow-hidden rounded-xl border border-neutral-border bg-white transition hover:shadow-md"
                   >
                     <div className="relative h-32 w-full">

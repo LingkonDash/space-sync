@@ -24,6 +24,11 @@ export const getHostBookings = async () => {
   return res
 }
 
+export const getAdminBookings = async () => {
+  const res = await protectedServerFetch(`/bookings/admin`)
+  return res
+}
+
 export const updateBookingStatus = async (
   bookingId: string,
   status: BookingStatus,

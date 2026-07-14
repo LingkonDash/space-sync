@@ -27,12 +27,12 @@ const PUBLIC_LINKS: NavLink[] = [
 const USER_LINKS: NavLink[] = [{ label: "My Bookings", href: "/dashboard/bookings" }];
 
 const HOST_LINKS: NavLink[] = [
-    { label: "Add Space", href: "/dashboard/item/add" },
-    { label: "Manage Spaces", href: "/dashboard/item/manage" },
+    { label: "Add Space", href: "/dashboard/items/add" },
+    { label: "Manage Spaces", href: "/dashboard/items/manage" },
 ];
 const ADMIN_LINKS: NavLink[] = [
     { label: "Approvals", href: "/dashboard/admin/approvals" },
-    { label: "Manage Spaces", href: "/dashboard/item/manage" },
+    { label: "Manage Spaces", href: "/dashboard/items/manage" },
 ];
 
 function getRoleLinks(role: SessionUser["userRole"]): NavLink[] {

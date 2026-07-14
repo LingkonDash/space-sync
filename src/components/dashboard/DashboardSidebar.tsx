@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import logo from "@/images/spaceSyncLogo.svg";
 import {
   MdDashboard,
   MdBookOnline,
@@ -19,6 +20,7 @@ import {
   MdFactCheck,
 } from "react-icons/md";
 import { toast } from "react-toastify";
+import Image from "next/image";
 
 // ─── Types ─────────────────────────────────────────────────────────
 type Role = "admin" | "host" | "user";
@@ -197,12 +199,12 @@ function SidebarContent({
     <div className="flex flex-col h-full bg-white select-none">
       {/* ── Brand Header ── */}
       <div className="px-5 pt-6 pb-5 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5 group w-fit" onClick={onNavClick}>
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#4F46E5] to-[#4338ca] flex items-center justify-center shadow-md shadow-[#4F46E5]/35 group-hover:shadow-[#4F46E5]/50 transition-shadow duration-300">
-            <MdMeetingRoom className="text-white size-5" />
+        <Link href="/" className="flex items-center group w-fit" onClick={onNavClick}>
+          <div className="w-9 h-9 p-1.5 rounded-xl flex items-center justify-center">
+            <Image src={logo} alt="logo" width={40} height={40} />
           </div>
           <div className="leading-none">
-            <span className="font-extrabold text-slate-900 text-[17px] tracking-tight">
+            <span className="font-extrabold text-slate-900 text-[18px] tracking-tight">
               Space
             </span>
             <span className="font-extrabold text-[17px] tracking-tight text-[#4F46E5]">
@@ -300,9 +302,9 @@ export default function DashboardSidebar({ session }: DashboardSidebarProps) {
 
       {/* Mobile Top Bar */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-[#4F46E5] to-[#4338ca] flex items-center justify-center shadow-md shadow-[#4F46E5]/30">
-            <MdMeetingRoom className="text-white size-4" />
+        <Link href="/" className="flex items-center">
+          <div className="w-9 h-9 p-1.5 rounded-xl flex items-center justify-center">
+            <Image src={logo} alt="logo" width={40} height={40} />
           </div>
           <span className="font-extrabold text-slate-900 text-sm tracking-tight">
             Space<span className="text-[#4F46E5]">Sync</span>

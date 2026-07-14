@@ -1,6 +1,6 @@
 'use server'
 
-import { getRoomById } from "@/lib/api/rooms";
+import { getRelatedRooms, getRoomById } from "@/lib/api/rooms";
 import { reviewValidation, updateRoomValidation } from "@/utils/roomValidatons";
 import RoomPageBody from "@/components/explore/details/RoomPageBody";
 
@@ -16,7 +16,8 @@ export default async function RoomsDetailsPage({ params }: PageProps) {
   const canUpdate = await updateRoomValidation();
 
   const reviews = room.reviews ?? [];
-  const relatedSpaces = []; // e.g. await getRelatedSpaces({ category: room.categoryCode, city: room.city, exclude: room._id })
+  const relatedSpaces = await getRelatedRooms(room._id)
+
 
   return (
     <RoomPageBody
